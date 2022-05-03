@@ -437,10 +437,6 @@ int checktable(string tblName)
 
 void create(string q)
 {
-    /*
-    create table student(id int, name varchar)
-    create table employee(id int, mob int, name varchar)
-    */
     int i = 1, k = 0;
     string temp, tableName, columnName, dataType;
 
@@ -448,18 +444,15 @@ void create(string q)
 
     while(q[i] != 32) {
        i++;
-       //cout << i << endl;
     }
     i++;
-    //cout << i ;
+
     while(q[i] != 40) {
        tableName += q[i];
        i++;
     }
     i++;
 
-    //Exception - Check whether already table exist or not with similar name..
-    //cout << "\n Table Name - " << tableName << endl;
 
     while(q[i] != 41) {
         columnName = "";
@@ -480,7 +473,7 @@ void create(string q)
             i++;
         }
         cols[k][1] = dataType;
-        //cout << " col = " << cols[k][0] << " "<< cols[k][1] << endl ;
+        
         k++;
 
         if((q[i] != 41)) {
@@ -508,7 +501,6 @@ void create(string q)
         while(data[ii] != 35) {
 
             temp += data[ii];
-            //cout << " \n temp - " << temp << endl ;
             ii++;
         }
 
@@ -551,9 +543,6 @@ void create(string q)
 
 void insert_record(string q)
 {
-    /*
-    -- insert into stud values(111, neha, 1234567890);
-    */
 
     int i = 1;
     string temp, tableName, id, temp2;
@@ -573,7 +562,6 @@ void insert_record(string q)
 
 
     while(q[i] != 40) {
-        //To skip 'values'
        i++;
     }
     i++;
@@ -582,62 +570,7 @@ void insert_record(string q)
     {
         ofstream outfile;
         outfile.open(tableName + ".txt", ios::app);
-
-        /* while(q[i] != 41) {
-        temp+=q[i];
-        i++;
-        } */
-
-        /*int t = i;
-
-        while(q[t] != 44) {
-            id += q[t];
-            t++;
-        }
-        t++;
-
-        no = stoi(id);
-
-        //cout << "\n id = " << no << endl ;
-        int k = 0;
-
-        ifstream ifs;
-        ifs.open(tableName + ".txt", ios::in);
-        ifs.getline(data,100);
-
-        while(!ifs.eof())
-        {
-            ifs.getline(data,100);
-
-            int j = 0;
-            temp2 = "";
-
-            while(data[j] != 124) {
-                temp2 += data[j];
-                j++;
-            }
-            //cout << endl << temp2 << endl ;
-
-            no1 = stoi(temp2);
-            ids[k] = no1;
-            //cout << " | " << ids[k] << " = " << k ;
-            k++;
-        }
-
-        ifs.close();
-
-        for(int n = 0 ; n < k ; n++) {
-            if(no == ids[n]) {
-                flag = 1;
-                break;
-            }
-        }
-
-        if(flag == 1) {
-            cout << "\n Primary Key Constraint Violated..! " << endl ;
-        }
-        else {*/
-            while(q[i] != 41) {
+        while(q[i] != 41) {
 
                 while(q[i] != 44) {
 
@@ -663,7 +596,6 @@ void insert_record(string q)
             outfile << "\n" ;
             cout << tableName << " : Record inserted succesfully..!" << endl;
             outfile.close();
-        //}
     }
     else
     {
@@ -682,10 +614,6 @@ void update_record(string q)
     string temp2;
     temp2="temp";
 
-    //cout << "Query - " << q << endl ;
-    //update stud set phone_no="9970149186" where name="shubhayu";
-    //update stud set name="Nehali" where id="333";
-    //update stud set name="Shubhayu" where id="222";
 
     while(q[i] != 32) {
        tableName += q[i];
@@ -757,22 +685,19 @@ void update_record(string q)
     is.open(tableName + ".txt", ios::in);
     is.getline(data, 100);
 
-    /*for(int n = 0 ; n < 3 ; n++) {
-        cout << data[n] << " | ";
-    }*/
 
     while(data[ii] != '\0') {
         temp = "" ;
 
         while(data[ii] != 124) {
             temp += data[ii];
-            //cout << " \n temp - " << temp << endl ;
+    
             ii++;
         }
         ii++;
         count1++;
 
-        //cout << " \n temp - " << temp << endl ;
+    
 
         if(temp == colName) {
             flag = 1;
@@ -792,22 +717,18 @@ void update_record(string q)
     is.seekg(0);
     is.getline(data, 100);
 
-    /*for(int n = 0 ; n < 3 ; n++) {
-        cout << data[n] << " | ";
-    }*/
 
     while(data[ii] != '\0') {
         temp = "" ;
 
         while(data[ii] != 124) {
             temp += data[ii];
-            //cout << " \n temp - " << temp << endl ;
+        
             ii++;
         }
         ii++;
         count2++;
 
-        //cout << " \n temp - " << temp << endl ;
 
         if(temp == newColName) {
             flag = 1;
@@ -840,7 +761,7 @@ void update_record(string q)
                 ii++;
             }
             ii++;
-            //cout << " \n temp - " << temp << endl ;
+        
         }
         if(temp == value) {
             break;
@@ -854,7 +775,7 @@ void update_record(string q)
     ofstream ofs;
     ofs.open("temp.txt", ios::out);
 
-    // Copying content to temporary file Except Line to be deleted
+    
     char c;
     int n = 0, tt = 1;
     char arr[100];
@@ -916,7 +837,6 @@ void update_record(string q)
     ofs.close();
     is.close();
 
-    // Getting back data
     is.open("temp.txt", ios::in);
     ofs.open(tableName + ".txt", ios::out);
 
@@ -940,8 +860,6 @@ void delete_record(string q)
     string temp2;
     temp2="temp";
 
-    //cout << "Query - " << q << endl ;
-    //delete from stud where name="shubhayu";
 
     while(q[i] != 32) {
        t += q[i];
@@ -949,7 +867,6 @@ void delete_record(string q)
     }
     i++;
 
-    //cout << "\n t = " << t << endl;
 
     if(t == "*") {
         while(q[i] != 32) {
@@ -963,7 +880,7 @@ void delete_record(string q)
         }
         i++;
 
-        //cout << "\n " <<  tableName << endl ;
+
 
         if(checktable(tableName))
         {
@@ -992,7 +909,7 @@ void delete_record(string q)
         }
         i++;
 
-        //cout << "\n " <<  tableName << endl ;
+
 
         if(checktable(tableName))
         {
@@ -1016,8 +933,6 @@ void delete_record(string q)
             }
             i++;
 
-            //cout << "\n " << colName << endl ;
-            //cout << "\n " <<  value << endl ;
         }
         else
         {
@@ -1034,22 +949,19 @@ void delete_record(string q)
         is.open(tableName + ".txt", ios::in);
         is.getline(data, 100);
 
-        /*for(int n = 0 ; n < 3 ; n++) {
-            cout << data[n] << " | ";
-        }*/
 
         while(data[ii] != '\0') {
             temp = "" ;
 
             while(data[ii] != 124) {
                 temp += data[ii];
-                //cout << " \n temp - " << temp << endl ;
+         
                 ii++;
             }
             ii++;
             count++;
 
-            //cout << " \n temp - " << temp << endl ;
+
 
             if(temp == colName) {
                 flag = 1;
@@ -1060,15 +972,13 @@ void delete_record(string q)
             cout << "\n Column name specified doesn't exist..! " << endl ;
         }
 
-        //cout << "\n Count - " << count << endl ;
+        
 
         while(!is.eof()) {
 
             memset(data, 0, sizeof(data));
             is.getline(data,100);
-            /*for(int n = 0 ; n < 3 ; n++) {
-                cout << data[n] << " | ";
-            }*/
+
 
             temp = "";
             line_no++;
@@ -1081,21 +991,21 @@ void delete_record(string q)
                     ii++;
                 }
                 ii++;
-                //cout << " \n temp - " << temp << endl ;
+               
             }
             if(temp == value) {
                 break;
             }
         }
 
-        //cout << "\n Line - " << line_no << endl ;
+
 
         is.clear();
         is.seekg(0);
         ofstream ofs;
         ofs.open("temp.txt", ios::out);
 
-        // Copying content to temporary file Except Line to be deleted
+       
         char c;
         int n = 1;
 
@@ -1111,7 +1021,7 @@ void delete_record(string q)
         ofs.close();
         is.close();
 
-        // Getting back data
+
         is.open("temp.txt", ios::in);
         ofs.open(tableName + ".txt", ios::out);
 
