@@ -1,7 +1,22 @@
-//create table student(GRNO int , Name varchar , Phone int , Branch varchar );
-//create table employees(ID int , Name varchar , Phone int , Dept varchar );
-//drop table student;
+/*
+create table student( GRNO int, Name varchar , Phone_no varchar , Branch );
+create table employee( ID int, Name varchar , Phone_no varchar , Dept );
+insert into student values( 11910234 , Navneet , 8493023174 , CS );
+insert into student values( 11910113 , Krishna , 6006277089 , IT );
+insert into student values( 11910900, Samruddhi , 6565584796 , CS );
+insert into student values( 11910540, Swaminath , 8989856532 ,Mech );
+truncate table student;
+drop table student;
+desc student;
+select * from student;
 
+delete * from student;
+delete from student where Name="Navneet";
+delete from student where GRNO="11910113";
+
+update tablename set columnane=value where condition
+delete from tablename where columname=value
+*/
 
 
 # include <bits/stdc++.h>
@@ -34,10 +49,11 @@ int main() {
         i = 0;
         temp = "";
 
-        cout << "\n Enter the Query : > " ;
+        cout << "\n Please Enter a Query:>>>> " ;
         getline(cin, query);
 
         transform(query.begin(), query.end(), query.begin(), ::tolower);
+
 
         if(query[i] == 'h') {
             while(query[i] != ';') {
@@ -51,54 +67,43 @@ int main() {
                i++;
             }
         }
-
         string q1 = query.substr(i, query.length());
 
         if(temp == "create") {
             create(q1);
         }
-
-        else if(temp=="drop")
-        {
-            drop(q1);
-        }
-
         else if(temp == "insert") {
             insert_record(q1);
         }
-
         else if(temp == "update") {
             update_record(q1);
         }
-
         else if(temp == "delete") {
             delete_record(q1);
         }
-
         else if(temp == "desc" || temp == "describe") {
 
             describe(q1);
         }
-
         else if(temp=="trunc" || temp=="truncate")
         {
             truncate(q1);
         }
-        
+        else if(temp=="drop")
+        {
+            drop(q1);
+        }
         else if(temp=="select")
         {
            select(q1);
         }
-        
         else if(temp == "help")
         {
             help();
         }
-
         else if(temp == "exit") {
             exit(0);
         }
-
         else {
             cout << "\n ERR: Please enter valid statement..! " ;
         }
@@ -107,192 +112,6 @@ int main() {
 
     return 0;
 }
-
-void create(string q)
-{
-    int i = 1, k = 0;
-    string temp, tableName, columnName, dataType;
-
-    string file = "Dict";
-
-    while(q[i] != 32) {
-       i++;
-       //cout << i << endl;
-    }
-    i++;
-    //cout << i ;
-    while(q[i] != 40) {
-       tableName += q[i];
-       i++;
-    }
-    i++;
-
-    //Exception - Check whether already table exist or not with similar name..
-    //cout << "\n Table Name - " << tableName << endl;
-
-    while(q[i] != 41) {
-        columnName = "";
-        dataType = "";
-
-        while(q[i] != 32) {
-            columnName += q[i];
-            i++;
-        }
-        i++;
-        cols[k][0] = columnName;
-
-        while(q[i] != 44) {
-            if(q[i] == 41) {
-                break;
-            }
-            dataType += q[i];
-            i++;
-        }
-        cols[k][1] = dataType;
-        //cout << " col = " << cols[k][0] << " "<< cols[k][1] << endl ;
-        k++;
-
-        if((q[i] != 41)) {
-            i += 2;
-        }
-        else {
-            break;
-        }
-    }
-
-    int flag=0;
-    ofstream outfile;
-    char data[100];
-
-    ifstream dict;
-    dict.open(file + ".txt", ios::out);
-
-    while(!dict.eof())
-    {
-         dict.getline(data,100);
-
-        string temp = "";
-        int ii = 0;
-
-        while(data[ii] != 35) {
-
-            temp += data[ii];
-            //cout << " \n temp - " << temp << endl ;
-            ii++;
-        }
-
-         if(tableName == temp)
-         {
-             cout << "\n Table is already exists..! " << endl;
-             flag=1;
-             break;
-         }
-    }
-    dict.close();
-
-    Dictionary.open(file + ".txt", ios::app);
-
-    if(flag==0)
-    {
-        outfile.open(tableName + ".txt");
-
-        Dictionary << tableName << "#" ;
-
-        for(i=0;i<k;i++)
-        {
-            Dictionary<<cols[i][0]<<"-";
-            Dictionary<<cols[i][1]<<"|";
-        }
-        Dictionary << ";" << "\n" ;
-        Dictionary.close();
-
-        for( i = 0 ; i < k ; i++) {
-            outfile << cols[i][0] << "|";
-        }
-
-        outfile << "\n" ;
-
-        cout << "\n " << tableName<<" : Table Created Successfully..! " << endl;
-     }
-
-    outfile.close();
-}
-
-void drop(string q)
-{
-  int i=1;
-  string tableName;
-
-    while(q[i] != 32) {
-       i++;
-    
-    }
-    i++;
-
-
-    while(q[i] != ';') {
-       tableName += q[i];
-       i++;
-
-    }
-    i++;
-
-    string temp1 = tableName + ".txt";
-
-    int n = temp1.length();
-
-    char char_array[n + 1];
-
-    strcpy(char_array, temp1.c_str());
-
-    int result = remove(char_array);
-
-    if (result == 0)
-    {
-        ifstream infile;
-        ofstream outfile;
-        string temp = "temp1";
-        char data[100];
-
-        infile.open("Dict.txt", ios::in);
-        outfile.open(temp + ".txt", ios::out);
-
-        while(!infile.eof()) {
-
-            memset(data, 0, sizeof(data));
-            infile.getline(data,100);
-            cout << data << endl;
-            string t;
-            int i = 0 ;
-
-            while(data[i] != 35) {
-               t += data[i];
-               i++;
-            }
-            cout << t << endl ;
-            if(tableName != t) {
-                outfile << data ;
-            }
-        }
-        outfile.close();
-        infile.close();
-
-        infile.open(temp + ".txt", ios::in);
-        outfile.open("Dict.txt", ios::out);
-
-        while(!infile.eof()) {
-
-            memset(data, 0, sizeof(data));
-            infile.getline(data,100);
-            outfile << data ;
-        }
-        outfile.close();
-        infile.close();
-
-        cout << "\n Table drop Successfully..! "<< endl;
-    }
-}
-
 
 void help()
 {
@@ -409,7 +228,6 @@ void describe(string q1)
 
     if(checktable(tableName))
      {
-        //cout<<tableName;
         string temp="Dict";
         char ch;
         string tb_nm, col_nm, col_type;
@@ -454,7 +272,81 @@ void describe(string q1)
    }
 }
 
+void drop(string q)
+{
+  int i=1;
+  string tableName;
 
+    while(q[i] != 32) {
+       i++;
+       //cout << i << endl;
+    }
+    i++;
+
+    //cout << i ;
+    while(q[i] != ';') {
+       tableName += q[i];
+       i++;
+
+    }
+    i++;
+
+    string temp1 = tableName + ".txt";
+
+    int n = temp1.length();
+
+    // declaring character array
+    char char_array[n + 1];
+
+    strcpy(char_array, temp1.c_str());
+
+    int result = remove(char_array);
+
+    if (result == 0)
+    {
+        ifstream infile;
+        ofstream outfile;
+        string temp = "temp1";
+        char data[100];
+
+        infile.open("Dict.txt", ios::in);
+        outfile.open(temp + ".txt", ios::out);
+
+        while(!infile.eof()) {
+
+            memset(data, 0, sizeof(data));
+            infile.getline(data,100);
+            cout << data << endl;
+            string t;
+            int i = 0 ;
+
+            while(data[i] != 35) {
+               t += data[i];
+               i++;
+            }
+            cout << t << endl ;
+            if(tableName != t) {
+                outfile << data ;
+            }
+        }
+        outfile.close();
+        infile.close();
+
+        infile.open(temp + ".txt", ios::in);
+        outfile.open("Dict.txt", ios::out);
+
+        while(!infile.eof()) {
+
+            memset(data, 0, sizeof(data));
+            infile.getline(data,100);
+            outfile << data ;
+        }
+        outfile.close();
+        infile.close();
+
+        cout << "\n Table drop Successfully..! "<< endl;
+    }
+}
 
 void truncate(string q )
 {
@@ -543,7 +435,119 @@ int checktable(string tblName)
 
 }
 
+void create(string q)
+{
+    /*
+    create table student(id int, name varchar)
+    create table employee(id int, mob int, name varchar)
+    */
+    int i = 1, k = 0;
+    string temp, tableName, columnName, dataType;
 
+    string file = "Dict";
+
+    while(q[i] != 32) {
+       i++;
+       //cout << i << endl;
+    }
+    i++;
+    //cout << i ;
+    while(q[i] != 40) {
+       tableName += q[i];
+       i++;
+    }
+    i++;
+
+    //Exception - Check whether already table exist or not with similar name..
+    //cout << "\n Table Name - " << tableName << endl;
+
+    while(q[i] != 41) {
+        columnName = "";
+        dataType = "";
+
+        while(q[i] != 32) {
+            columnName += q[i];
+            i++;
+        }
+        i++;
+        cols[k][0] = columnName;
+
+        while(q[i] != 44) {
+            if(q[i] == 41) {
+                break;
+            }
+            dataType += q[i];
+            i++;
+        }
+        cols[k][1] = dataType;
+        //cout << " col = " << cols[k][0] << " "<< cols[k][1] << endl ;
+        k++;
+
+        if((q[i] != 41)) {
+            i += 2;
+        }
+        else {
+            break;
+        }
+    }
+
+    int flag=0;
+    ofstream outfile;
+    char data[100];
+
+    ifstream dict;
+    dict.open(file + ".txt", ios::out);
+
+    while(!dict.eof())
+    {
+         dict.getline(data,100);
+
+        string temp = "";
+        int ii = 0;
+
+        while(data[ii] != 35) {
+
+            temp += data[ii];
+            //cout << " \n temp - " << temp << endl ;
+            ii++;
+        }
+
+         if(tableName == temp)
+         {
+             cout << "\n Table is already exists..! " << endl;
+             flag=1;
+             break;
+         }
+    }
+    dict.close();
+
+    Dictionary.open(file + ".txt", ios::app);
+
+    if(flag==0)
+    {
+        outfile.open(tableName + ".txt");
+
+        Dictionary << tableName << "#" ;
+
+        for(i=0;i<k;i++)
+        {
+            Dictionary<<cols[i][0]<<"-";
+            Dictionary<<cols[i][1]<<"|";
+        }
+        Dictionary << ";" << "\n" ;
+        Dictionary.close();
+
+        for( i = 0 ; i < k ; i++) {
+            outfile << cols[i][0] << "|";
+        }
+
+        outfile << "\n" ;
+
+        cout << "\n " << tableName<<" : Table Created Successfully..! " << endl;
+     }
+
+    outfile.close();
+}
 
 void insert_record(string q)
 {
@@ -753,19 +757,22 @@ void update_record(string q)
     is.open(tableName + ".txt", ios::in);
     is.getline(data, 100);
 
+    /*for(int n = 0 ; n < 3 ; n++) {
+        cout << data[n] << " | ";
+    }*/
 
     while(data[ii] != '\0') {
         temp = "" ;
 
         while(data[ii] != 124) {
             temp += data[ii];
-   
+            //cout << " \n temp - " << temp << endl ;
             ii++;
         }
         ii++;
         count1++;
 
-       
+        //cout << " \n temp - " << temp << endl ;
 
         if(temp == colName) {
             flag = 1;
@@ -785,19 +792,22 @@ void update_record(string q)
     is.seekg(0);
     is.getline(data, 100);
 
- 
+    /*for(int n = 0 ; n < 3 ; n++) {
+        cout << data[n] << " | ";
+    }*/
+
     while(data[ii] != '\0') {
         temp = "" ;
 
         while(data[ii] != 124) {
             temp += data[ii];
-           
+            //cout << " \n temp - " << temp << endl ;
             ii++;
         }
         ii++;
         count2++;
 
-        
+        //cout << " \n temp - " << temp << endl ;
 
         if(temp == newColName) {
             flag = 1;
@@ -830,7 +840,7 @@ void update_record(string q)
                 ii++;
             }
             ii++;
-         
+            //cout << " \n temp - " << temp << endl ;
         }
         if(temp == value) {
             break;
@@ -844,7 +854,7 @@ void update_record(string q)
     ofstream ofs;
     ofs.open("temp.txt", ios::out);
 
-  
+    // Copying content to temporary file Except Line to be deleted
     char c;
     int n = 0, tt = 1;
     char arr[100];
@@ -906,6 +916,7 @@ void update_record(string q)
     ofs.close();
     is.close();
 
+    // Getting back data
     is.open("temp.txt", ios::in);
     ofs.open(tableName + ".txt", ios::out);
 
@@ -929,6 +940,8 @@ void delete_record(string q)
     string temp2;
     temp2="temp";
 
+    //cout << "Query - " << q << endl ;
+    //delete from stud where name="shubhayu";
 
     while(q[i] != 32) {
        t += q[i];
@@ -950,6 +963,7 @@ void delete_record(string q)
         }
         i++;
 
+        //cout << "\n " <<  tableName << endl ;
 
         if(checktable(tableName))
         {
@@ -978,7 +992,7 @@ void delete_record(string q)
         }
         i++;
 
-        
+        //cout << "\n " <<  tableName << endl ;
 
         if(checktable(tableName))
         {
@@ -1002,7 +1016,8 @@ void delete_record(string q)
             }
             i++;
 
-    
+            //cout << "\n " << colName << endl ;
+            //cout << "\n " <<  value << endl ;
         }
         else
         {
@@ -1019,20 +1034,23 @@ void delete_record(string q)
         is.open(tableName + ".txt", ios::in);
         is.getline(data, 100);
 
-    
+        /*for(int n = 0 ; n < 3 ; n++) {
+            cout << data[n] << " | ";
+        }*/
 
         while(data[ii] != '\0') {
             temp = "" ;
 
             while(data[ii] != 124) {
                 temp += data[ii];
-    
+                //cout << " \n temp - " << temp << endl ;
                 ii++;
             }
             ii++;
             count++;
 
-        
+            //cout << " \n temp - " << temp << endl ;
+
             if(temp == colName) {
                 flag = 1;
                 break;
@@ -1042,12 +1060,15 @@ void delete_record(string q)
             cout << "\n Column name specified doesn't exist..! " << endl ;
         }
 
+        //cout << "\n Count - " << count << endl ;
 
         while(!is.eof()) {
 
             memset(data, 0, sizeof(data));
             is.getline(data,100);
-
+            /*for(int n = 0 ; n < 3 ; n++) {
+                cout << data[n] << " | ";
+            }*/
 
             temp = "";
             line_no++;
@@ -1060,20 +1081,21 @@ void delete_record(string q)
                     ii++;
                 }
                 ii++;
-
+                //cout << " \n temp - " << temp << endl ;
             }
             if(temp == value) {
                 break;
             }
         }
 
-
+        //cout << "\n Line - " << line_no << endl ;
 
         is.clear();
         is.seekg(0);
         ofstream ofs;
         ofs.open("temp.txt", ios::out);
 
+        // Copying content to temporary file Except Line to be deleted
         char c;
         int n = 1;
 
@@ -1088,6 +1110,8 @@ void delete_record(string q)
 
         ofs.close();
         is.close();
+
+        // Getting back data
         is.open("temp.txt", ios::in);
         ofs.open(tableName + ".txt", ios::out);
 
@@ -1101,3 +1125,4 @@ void delete_record(string q)
 
     cout << "\n Record Successfully Deleted..! " << endl ;
 }
+
