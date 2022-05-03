@@ -1,1 +1,0 @@
-employees#id-int |name-varchar |phone-int |dept-varchar |;student#grno-int |name-varchar |phone-int |branch-varchar |;
