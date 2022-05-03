@@ -4,7 +4,7 @@ create table employee( ID int, Name varchar , Phone_no varchar , Dept );
 insert into student values( 11910234 , Navneet , 8493023174 , CS );
 insert into student values( 11910113 , Krishna , 6006277089 , IT );
 insert into student values( 11910900, Samruddhi , 6565584796 , CS );
-insert into student values( 11910540, Swaminath , 8989856532 ,Mech );
+insert into student values( 11910540, Swaminath , 8989856532 , Mech );
 truncate table student;
 drop table student;
 desc student;

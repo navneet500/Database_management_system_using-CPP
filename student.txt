@@ -1,0 +1,5 @@
+grno|name|phone_no|branch|
+ 11910234 |navneet |8493023174 |cs |
+ 11910113 |krishna |6006277089 |it |
+ 11910900|samruddhi |6565584796 |cs |
+ 11910540|swaminath |8989856532 |mech |
