@@ -1,0 +1,1 @@
+employees#id-int |name-varchar |phone-int |dept-varchar |;
