@@ -1,4 +1,4 @@
-# Database_management_system_using-CPP
+Database_management_system_using-CPP
 
 USE THESE INPUTS TO AFTER EXECUTING THE CODE
 
@@ -18,10 +18,13 @@ INSERT INTO STUDENTS VALUES ( 11910233 , Akanksha , 8493968251 , Mech )
 INSERT INTO STUDENTS VALUES ( 11910354 , Swaminath , 9865124786 , CS )
 
 INSERT INTO EMPLOYEES VALUES ( 1 , NAVNEET , 8493023174 , HR )
+
 ****datatype error****
+
 INSERT INTO STUDENTS VALUES ( 11910354 , Swaminath , CS , 9865124786 )
 
 ****column error****
+
 INSERT INTO STUDENTS VALUES ( 11910354 , Swaminath , CS )
 
 SELECT * FROM STUDENTS
